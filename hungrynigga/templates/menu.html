@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+
+<div class="col-md-2">
+	<div class="row justify-content-around">
+		<div class="card m-4" style="width: 18rem;">
+		  <div class="card-header">
+		    Category
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">Indian</li>
+		    <li class="list-group-item">Chinese</li>
+		    <li class="list-group-item">South Indian</li>
+		  </ul>
+		</div>
+	</div>
+</div>
+<div class="col-md-7">
+	<div class="row justify-content-around">
+	{% for item in items %}
+		<div class="card m-4 animated bounceIn" style="width: 18rem;">
+		  <img class="card-img-top" width="286px" height="180px"  src="{{ url_for('static', filename='item_pics/' + item['image']) }}" alt="Card image cap">
+		  <div class="card-body">
+		  	<span class="float-right">
+	    		{% if item.veg %}
+	    		<img src="{{ url_for('static', filename='images/veg.png') }}">
+	    		{% else %}
+	    		<img src="{{ url_for('static', filename='images/nonveg.png') }}">
+	    		{% endif %}
+    		</span>
+
+		    <h5 class="card-title">{{ item['title'] }}</h5>
+    		<h6 class="card-subtitle mb-2 text-muted">{{ item['category'] }}</h6>
+		    <div>
+		    	<span><small><del>&#x20b9;{{ item.mrp }}</del></small><b> &#x20b9;{{ item['realprice'] }}</b></span>
+		    	<span class="bg-{{ item['rating_color'] }} float-right rounded" style="color: white; padding: 0.1em;">&nbsp⚝ {{ item['rating']/10 }} &nbsp</span> <br>
+		    	<span class="text-info">Get {{ item['offer'] }}% off / -</span>
+		    </div>
+		    
+		  </div>
+		  {% if current_user.is_authenticated %}
+		  <div class="card-body pt-0">
+		  	<input type="number" style="max-width: 60px;" class="form-control float-left form-control-sm mt-1 quantity quantity{{ item.id }}" min="1" max="100" value='1'>
+		  	{% if item['cart'] %}
+		  		<button class="btn btn-danger float-right addtocart" id="{{ item['id'] }}">Remove</button>
+		  	{% else %}
+		  		<button class="btn btn-outline-info float-right addtocart" id="{{ item['id'] }}">Add to Cart</button>
+		  	{% endif %}
+		  	
+		  </div>
+		  {% endif %}
+		</div>
+	{% endfor %}
+</div>
+</div>
+<div class="col-md-3">
+	{% if current_user.is_authenticated %}
+	<div class="row justify-content-around">
+		<div class="card m-4 animated bounceIn" style="width: 360px;">
+		  <div class="card-header">
+		    Cart
+		  </div>
+		  <ul class="list-group list-group-flush" id="cart-list">
+		    {% for item in items %}
+		    {% if item['cart'] %}
+		    	{% if item['veg'] %}
+		    	<li class="list-group-item" id="cart{{item['id']}}"><img src="{{ url_for('static', filename='images/veg.png' )}}">
+		    	{% else %}
+		    	<li class="list-group-item"><img src="{{ url_for('static', filename='images/nonveg.png' )}}">
+		   		{% endif %}
+		    	&nbsp {{ item['title'] }} ({{ item['quantity'] }}) <b class="float-right">&#x20b9;{{ item['realprice']*item['quantity'] }}</b></li>
+		    {% endif %}
+		    {% endfor %}
+		  </ul>
+		  <div class="card-body">
+		  	<span class="float-left">
+		  		<h5 class=""><small><b>Subtotal:</b> &nbsp<del id="mrptotal">&#x20b9;{{ total[0] }}</del></small> <span id="realtotal"> &#x20b9;{{ total[1] }}</span></h5>
+		  		<h6 class="card-subtitle text-muted">Extra charges may apply</h6>
+		  	</span>
+		  	
+		  	<a href="/checkout" class="btn btn-success float-right mt-1">Checkout ➝</a>
+		  </div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

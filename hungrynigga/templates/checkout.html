@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="col-3"></div>
+<div class="col-4">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend class="the-legend border-bottom md-4">Checkout</legend>
+			<div class="form-group">
+				{{ form.name.label }}
+				{{ form.name(class="form-control") }}
+				{% if form.name.errors %}
+					{% for error in form.name.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.contact.label }}
+				{{ form.contact(class="form-control") }}
+				{% if form.contact.errors %}
+					{% for error in form.contact.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.address.label }}
+				{{ form.address(class="form-control") }}
+				{% if form.address.errors %}
+					{% for error in form.address.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.zip_code.label }}
+				{{ form.zip_code(class="form-control") }}
+				{% if form.zip_code.errors %}
+					{% for error in form.zip_code.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			{{ form.submit(class="btn btn-outline-success") }}
+		</div>
+	</form>
+</div>
+<div class="col-md-3">
+	{% if current_user.is_authenticated %}
+	<div class="row justify-content-around">
+		<div class="card m-4" style="width: 360px;">
+		  <div class="card-header">
+		    Your Order
+		  </div>
+		  <ul class="list-group list-group-flush" id="cart-list">
+		    {% for item in cart %}
+		    	{% if item.item.veg %}
+		    	<li class="list-group-item" id="cart{{item['id']}}"><img src="{{ url_for('static', filename='images/veg.png' )}}">
+		    	{% else %}
+		    	<li class="list-group-item"><img src="{{ url_for('static', filename='images/nonveg.png' )}}">
+		   		{% endif %}
+		    	&nbsp {{ item.item.title }} ({{ item.quantity }}) <b class="float-right">&#x20b9;{{ item.item.getOffer()*item.quantity }}</b></li>
+		    {% endfor %}
+		  </ul>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

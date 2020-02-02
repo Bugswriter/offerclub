@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="col-4">
+	<form method="POST" action="" enctype="multipart/form-data">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend class="the-legend border-bottom md-4">Add food item</legend>
+			<div class="form-group">
+				{{ form.title.label(class="form-control-label") }}
+				{{ form.title(class="form-control form-control-lg") }}
+				<div class="invalid-feedback d-block">
+				{% if form.title.errors %}
+					{% for error in form.title.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ form.mrp.label(class="form-control-label") }}
+				{{ form.mrp(class="form-control form-control-lg") }}
+				<div class="invalid-feedback d-block">
+				{% if form.mrp.errors %}
+					{% for error in form.mrp.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ form.category.label(class="form-control-label") }}
+				{{ form.category(class="form-control form-control-lg") }}
+				<div class="invalid-feedback d-block">
+				{% if form.category.errors %}
+					{% for error in form.category.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ form.veg.label(class="form-control-label") }}
+				{{ form.veg(class="custom-select") }}
+				<div class="invalid-feedback d-block">
+				{% if form.veg.errors %}
+					{% for error in form.veg.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+				</div>
+			</div>
+			<div class="custom-file pt-2">
+				{{ form.image(class="custom-file-input") }}
+				{{ form.image.label(class="custom-file-label") }}
+				<div class="invalid-feedback d-block">
+				{% if form.image.errors %}
+				
+					{% for error in form.image.errors %}
+						<span>{{ error }}</span>
+					{% endfor %}
+				
+				{% endif %}
+				</div>
+			</div>
+		</fieldset>
+		<div class="form-group">
+			{{ form.submit(class="btn btn-outline-info") }}
+		</div>
+	</form>
+</div>
+{% endblock %}

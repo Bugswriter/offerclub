@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="col-12">
+	<h1>Order View</h1>
+	<table class="table text-center mt-4 border table-striped">
+		<thead class="thead-dark table-striped">
+    		<th>ID</th>
+    		<th>Address</th>
+    		<th>Phone</th>
+    		<th>Zip Code</th>
+    		<th>Time</th>
+    		<th>Status</th>
+    		<th>Update</th>
+    		<th>Cancel</th>
+  		</thead>
+  		{% for order in orders %}
+	  		<tr>
+	  			<td>{{order.id}}</td>
+	    		<td>{{order.address}}</td>
+	    		<td>{{order.phone}}</td>
+	    		<td>{{order.zip_code}}</td>
+	    		<td>{{order.time}}</td>
+	    		<td>{{order.getStatus()}}</td>
+	    		<td><a class="btn btn-outline-info" href="{{url_for('admin.ordersview')}}/{{order.id}}/1">Update</a></td>
+	    		<td><a  class="btn btn-outline-danger" href="{{url_for('admin.ordersview')}}/{{order.id}}/0">Cancel Order</a></td>
+	  		</tr>
+  		{% endfor %}
+  	</table>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% if title %} 
+    <title>HungryNigga | {{ title }}</title>
+  {% else %}
+    <title>HungryNigga</title>
+  {% endif %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+
+<header class="site-header">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse ml-4" id="navbarTogglerDemo01">
+	    <a class="navbar-brand mr-auto" href="#">HungryNigga</a>
+	    <ul class="navbar-nav  mt-2 mt-lg-0 mr-4">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/menu">Menu</a>
+	      </li>
+	    
+	      	{% if current_user.is_authenticated %}
+	      	<li class="nav-item">
+	      		<a class="nav-link" href="/account">Account</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="/logout">Logout</a>
+	    	</li>
+	        {% else %}
+	        <li class="nav-item">
+	        	<a class="nav-link" href="/login">Login</a>
+	    	</li>
+	        <li class="nav-item">
+	        	<a class="nav-link" href="/register">Register</a>
+	      	</li>
+	        {% endif %}
+	      </li>
+	    </ul>
+	    
+	  </div>
+	</nav>
+</header>
+
+<div class="container-fluid">
+	<div class="row justify-content-center animated flipInX">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		  {% if messages %}
+		    {% for category, message in messages %}
+		    <div class="col-md-4 mt-3 alert alert-{{ category }}" role="alert">
+		      <span>{{ message }}</span>
+		  	</div>
+	    	{% endfor%}
+	  	  {% endif %}
+		{% endwith %}
+	</div>
+	<div class="row justify-content-around p-4">
+		{% block content %}{% endblock content %}
+	</div>
+</div>
+
+<!-- <footer class="footer-copyright text-center">
+	made with ❤️ by <a href="github.com/bugswriter">@BugsWriter & Team</a>
+</footer> -->
+</body>
+</html>

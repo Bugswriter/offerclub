@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Reset Form</h1>
+<form method="POST" action="">
+	{{ form.hidden_tag() }}
+	{{ form.password.label }}
+	{{ form.password }}
+	{% if form.password.errors %}
+		{% for error in form.password.errors %}
+			<span>{{ error }}</span>
+		{% endfor %}
+	{% endif %}
+	{{ form.confirm_password.label }}
+	{{ form.confirm_password }}
+	{% if form.confirm_password.errors %}
+		{% for error in form.confirm_password.errors %}
+			<span>{{ error }}</span>
+		{% endfor %}
+	{% endif %}
+	<br>
+	{{ form.submit }}
+</form>
+
+{% endblock %}

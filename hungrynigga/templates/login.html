@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="col-4">
+
+<form method="POST" action="">
+	{{ form.hidden_tag() }}
+	<fieldset class="form-group">
+		<legend class="the-legend border-bottom mb-4">Login</legend>
+		<div class="form-group">
+		{{ form.email.label(class="form-control-label") }}
+		{{ form.email(class="form-control form-control-lg") }}
+			<div class="invalid-feedback d-block">
+			{% if form.email.errors %}
+				{% for error in form.email.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form.password.label(class="form-control-label") }}
+			{{ form.password(class="form-control form-control-lg") }}
+		
+		{% if form.password.errors %}
+			<div class="invalid-feedback d-block">
+			{% for error in form.password.errors %}
+				{{ error }}
+			{% endfor %}
+			</div>
+		{% endif %}
+		<small class="text-muted">
+			<a href="/reset_password">Forget password?</a>
+		</small>
+		</div>
+		<div class="from-group form-check">
+			{{ form.remember(class="form-check-input") }}
+			{{ form.remember.label(class="form-check-label") }}
+		</div>
+		
+	</fieldset>
+	<div class="form-group">
+		{{ form.submit(class="btn btn-outline-info") }}
+	</div>
+</form>
+<div class="border-top pt-3">
+        <small class="text-muted">
+            Not registered yet? <a class="ml-2" href="{{ url_for('users.register') }}">Create Account</a>
+        </small>
+    </div>
+</div>
+
+
+
+{% endblock %}

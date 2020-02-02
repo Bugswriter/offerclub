@@ -29,7 +29,7 @@ def menu():
 			x['rating'] = item.rating
 			x['realprice'] = item.getOffer()
 			x['category'] = item.category
-			x['veg'] = item.veg
+			x['exp'] = item.date
 			x['cart'] = False
 			x['rating_color'] = item.getRatingColor()
 			for c in cart:

@@ -23,13 +23,9 @@
 		<div class="card m-4 animated bounceIn" style="width: 18rem;">
 		  <img class="card-img-top" width="286px" height="180px"  src="{{ url_for('static', filename='item_pics/' + item['image']) }}" alt="Card image cap">
 		  <div class="card-body">
-		  	<span class="float-right">
-	    		{% if item.veg %}
-	    		<img src="{{ url_for('static', filename='images/veg.png') }}">
-	    		{% else %}
-	    		<img src="{{ url_for('static', filename='images/nonveg.png') }}">
-	    		{% endif %}
-    		</span>
+		  	<small class="float-right">
+	    		Expire: <b class="text-info"> {{ item['exp'] }}</b>
+    		</small>
 
 		    <h5 class="card-title">{{ item['title'] }}</h5>
     		<h6 class="card-subtitle mb-2 text-muted">{{ item['category'] }}</h6>

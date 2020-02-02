@@ -38,10 +38,11 @@ class User(db.Model, UserMixin):
 class Item(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(300), nullable=False)
+	discription = db.Column(db.Text(300), nullable=False)
 	image = db.Column(db.String(20), nullable=False, default='default.jpg')
 	mrp = db.Column(db.Integer, nullable=False)
 	offer = db.Column(db.Integer, nullable=False, default=0)
-	veg = db.Column(db.Boolean, nullable=False, default=True)	
+	date = db.Column(db.String(30), nullable=False)
 	rating = db.Column(db.Integer, nullable=True)
 	category = db.Column(db.String(400), nullable=True)
 	orders = db.relationship('Orderitem', backref='item', lazy=True)

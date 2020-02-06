@@ -8,7 +8,8 @@ from hungrynigga.items.utils import getCartTotal
 items = Blueprint('items', __name__)
 
 
-@items.route('/menu', methods=['GET'])
+@items.route('/', methods=['GET'])
+@items.route('/home', methods=['GET'])
 def menu():
 	items = Item.query.all()
 	if current_user.is_authenticated:

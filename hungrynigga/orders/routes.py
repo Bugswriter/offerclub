@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, abort, url_for, redirect
 from flask_login import current_user, login_required
 from hungrynigga.orders.forms import CheckoutForm
-from hungrynigga import db
+from hungrynigga importp db
 from hungrynigga.models import Orderinfo, Orderitem
 
 orders = Blueprint('orders', __name__)

@@ -21,7 +21,7 @@ class ItemForm(FlaskForm):
 	]
 	title = StringField('Offer Title', validators=[DataRequired()])
 	discription = StringField('Add Offer Discription', widget=TextArea(), validators=[DataRequired()])
-	image = FileField('Item Picture', validators=[FileAllowed(['jpg', 'png'])])
+	image = FileField('Item Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	discount = IntegerField('Add Discount', widget=html5.NumberInput() ,validators=[DataRequired()])
 	mrp = IntegerField('Original Price', widget=html5.NumberInput(), validators=[DataRequired()])
 	exp = DateField('Offer Expiry Date (Format: MM/DD/YY)', format='%m/%d/%Y')

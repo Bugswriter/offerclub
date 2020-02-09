@@ -12,7 +12,7 @@ users = Blueprint('users', __name__)
 @users.route('/register', methods=['GET', 'POST'])
 def register():
 	if current_user.is_authenticated:
-		return redirect(url_for('main.home'))
+		return redirect(url_for('items.menu'))
 
 	registerform = RegisterForm()
 	if registerform.validate_on_submit():
@@ -25,7 +25,7 @@ def register():
 @users.route('/register/<token>', methods=['GET', 'POST'])
 def finalregister(token):
 	if current_user.is_authenticated:
-		return redirect(url_for('main.home'))
+		return redirect(url_for('items.menu'))
 	s=Serializer(current_app.config['SECRET_KEY'])
 	finalregisterform=FinalRegisterForm()
 	try:
@@ -47,7 +47,7 @@ def finalregister(token):
 @users.route('/login', methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
-		return redirect(url_for('main.home'))
+		return redirect(url_for('items.menu'))
 	loginform = LoginForm()
 
 	if loginform.validate_on_submit():
@@ -58,18 +58,18 @@ def login():
 			if next_page:
 				return redirect(next_page)
 			else:
-				return redirect(url_for('main.home'))
+				return redirect(url_for('items.menu'))
 		else:
 			flash(f'Login Unsuccessful. Please check email or password', 'danger')
 
-		redirect(url_for('main.home'))
+		redirect(url_for('items.menu'))
 	return render_template('login.html', title='Login', form=loginform)
 
 
 @users.route('/logout')
 def logout():
 	logout_user()
-	return redirect(url_for('main.home'))
+	return redirect(url_for('items.menu'))
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])

@@ -31,6 +31,7 @@ def menu():
 			x['realprice'] = item.getOffer()
 			x['category'] = item.category
 			x['exp'] = item.date
+			x['discription'] = item.discription
 			x['cart'] = False
 			x['rating_color'] = item.getRatingColor()
 			for c in cart:
@@ -79,7 +80,6 @@ def addcart():
 	item['quantity'] = quantity
 	item['realprice'] = itemObj.getOffer()
 	item['added'] = added
-	item['veg'] = itemObj.veg
 	item['mrptotal'] = x[0]
 	item['realtotal'] = x[1]
 

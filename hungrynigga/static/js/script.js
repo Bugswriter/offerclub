@@ -22,12 +22,8 @@ $( document ).ready(function() {
     		success: function(response){
 
                 if (response.added){
-                    if (response.veg){
-                        var image = "<img src='/static/images/veg.png'> ";
-                    }else{
-                        var image = "<img src='static/images/nonveg.png'> ";
-                    }
-                    title = image + "&nbsp " + response.title;
+                    
+                    title =  "&nbsp " + response.title;
                     quantity = " (" +response.quantity+ ")"
                     price = '<b class="float-right">&#x20b9;' + response.realprice*response.quantity;
                     row = "<li class='list-group-item' id=cart"+ response.id +">" + title + quantity  + price + "</li>";

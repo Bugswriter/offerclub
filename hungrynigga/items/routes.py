@@ -12,6 +12,7 @@ items = Blueprint('items', __name__)
 @items.route('/home', methods=['GET'])
 def menu():
 	items = Item.query.all()
+	total = 0
 	if current_user.is_authenticated:
 		try:
 			cart = Orderitem.query.filter_by(user_id=current_user.id, cart=True)

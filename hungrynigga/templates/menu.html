@@ -28,62 +28,80 @@
 	</div>
 
 <div class="col-md-8">
+	<form method="GET" action="">
+		<select name="cat" class="custom-select custom-select-lg w-70 m-3" onchange="this.form.submit();">
+		  <option selected>Select Category</option>
+		  <option value="men">Mens Wear</option>
+		  <option value="foods">Foods</option>
+		  <option value="banquet">Banquet lawn</option>
+		  <option value="hotels">Hotels</option>
+		  <option value="electronics">Electronics</option>
+		  <option value="parlour">Hair Saloon & Parlour</option>
+		  <option value="jwelery">Jwelery</option>
+		  <option value="stationary">Stationary</option>
+		  <option value="others">Others</option>
+		</select>
+	</form>
 	<div class="row justify-content-around">
-	{% for item in items %}
-		<div class="card m-3 animated bounceIn" style="width: 20rem;">
-		  <img class="card-img-top" width="286px" height="180px"  src="{{ url_for('static', filename='item_pics/' + item['image']) }}" alt="Card image cap">
-		  <div class="card-body">
-		  	<small class="float-right">
-	    		Expire: <b class="text-info"> {{ item['exp'] }}</b>
-    		</small>
+	{% if item %}
+		{% for item in items %}
+			<div class="card m-3 animated bounceIn" style="width: 20rem;">
+			  <img class="card-img-top" width="286px" height="180px"  src="{{ url_for('static', filename='item_pics/' + item['image']) }}" alt="Card image cap">
+			  <div class="card-body">
+			  	<small class="float-right">
+		    		Expire: <b class="text-info"> {{ item['exp'] }}</b>
+	    		</small>
 
-		    <h5 class="card-title">{{ item['title'] }}</h5>
-    		<h6 class="card-subtitle mb-2 text-muted">{{ item['category'] }}</h6>
-		    <div>
-		    	<span><small><del>&#x20b9;{{ item.mrp }}</del></small><b> &#x20b9;{{ item['realprice'] }}</b></span>
-		    	<span class="bg-{{ item['rating_color'] }} float-right rounded" style="color: white; padding: 0.1em;">&nbsp⚝ {{ item['rating']/10 }} &nbsp</span> <br>
-		    	<span class="text-info">Get {{ item['offer'] }}% off / -</span>
-		    </div>
-		    <div>
-		    	<p style="max-height: 100px; overflow-y: scroll;">{{ item['discription'] }}</p>
-		    </div>
-		  </div>
-		  {% if current_user.is_authenticated %}
-		  <div class="card-body pt-0">
-		  	<input type="number" style="max-width: 60px;" class="form-control float-left form-control-sm mt-1 quantity quantity{{ item.id }}" min="1" max="100" value='1'>
-		  	{% if item['cart'] %}
-		  		<button class="btn btn-danger float-right addtocart" id="{{ item['id'] }}">Remove</button>
-		  	{% else %}
-		  		<button class="btn btn-outline-info float-right addtocart" id="{{ item['id'] }}">Add to Cart</button>
-		  	{% endif %}
-		  </div>
-		  {% endif %}
-		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		        {{ item['discription'] }}
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	{% endfor %}
+			    <h5 class="card-title">{{ item['title'] }}</h5>
+	    		<h6 class="card-subtitle mb-2 text-muted">{{ item['category'] }}</h6>
+			    <div>
+			    	<span><small><del>&#x20b9;{{ item.mrp }}</del></small><b> &#x20b9;{{ item['realprice'] }}</b></span>
+			    	<span class="bg-{{ item['rating_color'] }} float-right rounded" style="color: white; padding: 0.1em;">&nbsp⚝ {{ item['rating']/10 }} &nbsp</span> <br>
+			    	<span class="text-info">Get {{ item['offer'] }}% off / -</span>
+			    </div>
+			    <div>
+			    	<p style="max-height: 100px; overflow-y: scroll;">{{ item['discription'] }}</p>
+			    </div>
+			  </div>
+			  {% if current_user.is_authenticated %}
+			  <div class="card-body pt-0">
+			  	<input type="number" style="max-width: 60px;" class="form-control float-left form-control-sm mt-1 quantity quantity{{ item.id }}" min="1" max="100" value='1'>
+			  	{% if item['cart'] %}
+			  		<button class="btn btn-danger float-right addtocart" id="{{ item['id'] }}">Remove</button>
+			  	{% else %}
+			  		<button class="btn btn-outline-info float-right addtocart" id="{{ item['id'] }}">Add to Cart</button>
+			  	{% endif %}
+			  </div>
+			  {% endif %}
+			</div>
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        {{ item['discription'] }}
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		{% endfor %}
+	{% else %}
+		<img width="600px" src="https://cdn.dribbble.com/users/283708/screenshots/7084440/media/6cd8b29540bcfb6a7693c27f58db7b56.png">
+	{% endif %}
 </div>
 </div>
 <div class="col-md-4">
-	{% if current_user.is_authenticated %}
 	<div class="row justify-content-around">
+	{% if current_user.is_authenticated %}
 		<div class="card m-4 animated bounceIn" style="width: 360px;">
 		  <div class="card-header">
 		    Cart
@@ -107,10 +125,10 @@
 		  </div>
 
 		</div>
+	{% endif %}
 		<div class="card m-4 mt-4" style="width: 18rem;">
 		  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14042.722183074402!2d79.45912685!3d28.368506199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1581238066403!5m2!1sen!2sin" width="360" height="360" frameborder="0" style="border: 1px solid grey" allowfullscreen=""></iframe>
 		</div>
 	</div>
-	{% endif %}
 </div>
 {% endblock %}

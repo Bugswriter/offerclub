@@ -11,7 +11,11 @@ items = Blueprint('items', __name__)
 @items.route('/', methods=['GET'])
 @items.route('/home', methods=['GET'])
 def menu():
-	items = Item.query.all()
+	category = request.args.get('cat')
+	if category:
+		items = Item.query.filter_by(category=category)
+	else:
+		items = Item.query.all()
 	total = 0
 	if current_user.is_authenticated:
 		try:
